@@ -43,9 +43,17 @@ const App = () => {
         {tours.length > 0 ? (
           <Tours tours={tours} removeTour={removeTour} />
         ) : (
-          <button onClick={fetchData} className='btn'>
-            Render again
-          </button>
+          <>
+            <h2>no tours left</h2>
+            <button
+              onClick={fetchData}
+              className='btn'
+              type='button'
+              style={{ marginTop: '2rem' }}
+            >
+              Render again
+            </button>
+          </>
         )}
       </div>
     </main>

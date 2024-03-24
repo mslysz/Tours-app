@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import { Tour } from './Tour';
 
-export const Tours = ({ tours }) => {
-  const [toursList, setToursList] = useState(tours);
-  const removeTour = (id) => {
-    setToursList(toursList.filter((tour) => tour.id !== id));
-  };
+export const Tours = ({ tours, removeTour }) => {
   return (
-    <ul className='tours'>
-      {toursList.map((tour) => {
-        return <Tour key={tour.id} tour={tour} removeTour={removeTour} />;
-      })}
-    </ul>
+    <>
+      <div className='title'>
+        <h2>our tours</h2>
+        <div className='title-underline'></div>
+      </div>
+      <ul className='tours'>
+        {tours.map((tour) => {
+          return <Tour key={tour.id} {...tour} removeTour={removeTour} />;
+        })}
+      </ul>
+    </>
   );
 };

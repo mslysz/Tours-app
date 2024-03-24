@@ -1,14 +1,6 @@
 import { useState } from 'react';
-export const Tour = ({ tour, removeTour }) => {
-  const { id, image, info, name, price } = tour;
+export const Tour = ({ id, image, info, name, price, removeTour }) => {
   const [showFullText, setShowFullText] = useState(false);
-
-  const handleRemoveTour = () => {
-    removeTour(id);
-  };
-  const shortText = info.split('').slice(0, 250).join('') + '...';
-  // Conditionally display full text or short text
-  const displayText = showFullText ? info : shortText;
 
   return (
     <li className='single-tour'>
@@ -16,20 +8,24 @@ export const Tour = ({ tour, removeTour }) => {
       <span className='tour-price'>${price}</span>
       <div className='tour-info'>
         <h5>{name}</h5>
-        <p>{displayText}</p>
-        {!showFullText && (
+        <p>
+          {showFullText ? info : `${info.substring(0, 200)}...`}
           <button
             className='info-btn'
             type='button'
             onClick={() => {
-              setShowFullText(true);
+              setShowFullText(!showFullText);
             }}
           >
-            read more
+            {showFullText ? 'show less' : 'read more'}
           </button>
-        )}
+        </p>
       </div>
-      <button className='delete-btn' type='button' onClick={handleRemoveTour}>
+      <button
+        className='btn btn-block delete-btn'
+        type='button'
+        onClick={() => removeTour(id)}
+      >
         not interested
       </button>
     </li>

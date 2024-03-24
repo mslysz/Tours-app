@@ -12,8 +12,8 @@ export const Loading = () => {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <div className='loading'></div>;
   } else {
-    return null;
+    return [];
   }
 };

@@ -6,38 +6,46 @@ const url = 'https://course-api.com/react-tours-project';
 
 const App = () => {
   const [isloading, setIsLoading] = useState(true);
-  const [tours, setTour] = useState([]);
+  const [tours, setTours] = useState([]);
+
+  const removeTour = (id) => {
+    const newTours = tours.filter((tour) => tour.id !== id);
+    setTours(newTours);
+  };
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(url);
       const toursData = await response.json();
-      setTour(toursData);
-      setIsLoading(false);
+      setTours(toursData);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchData();
   }, []);
 
+  if (isloading) {
+    return (
+      <main>
+        <Loading />
+      </main>
+    );
+  }
   return (
     <main>
-      <h1>our tours</h1>
-      {isloading ? (
-        <Loading />
+      {tours.length > 0 ? (
+        <Tours tours={tours} removeTour={removeTour} />
       ) : (
-        <>
-          <Tours tours={tours} />
-          <button onClick={fetchData} className='btn'>
-            Render again
-          </button>
-        </>
+        <button onClick={fetchData} className='btn'>
+          Render again
+        </button>
       )}
     </main>
   );
 };
+
 export default App;

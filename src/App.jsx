@@ -24,6 +24,7 @@ const App = () => {
     }
     setIsLoading(false);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -35,15 +36,18 @@ const App = () => {
       </main>
     );
   }
+
   return (
     <main>
-      {tours.length > 0 ? (
-        <Tours tours={tours} removeTour={removeTour} />
-      ) : (
-        <button onClick={fetchData} className='btn'>
-          Render again
-        </button>
-      )}
+      <div className='title'>
+        {tours.length > 0 ? (
+          <Tours tours={tours} removeTour={removeTour} />
+        ) : (
+          <button onClick={fetchData} className='btn'>
+            Render again
+          </button>
+        )}
+      </div>
     </main>
   );
 };
